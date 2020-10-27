@@ -40,7 +40,9 @@ class LoginViewController: UIViewController {
     usernameField.frame.origin.y = logo.frame.maxY + 100
     passwordField.frame.origin.y = usernameField.frame.maxY + 10
     usernameField.placeholder = "Username"
+    usernameField.overrideUserInterfaceStyle = .light
     passwordField.placeholder = "Password"
+    passwordField.overrideUserInterfaceStyle = .light
     loginButton.setTitleColor(.systemTeal, for: .normal)
     loginButton.setTitle("Login", for: .normal)
     loginButton.sizeToFit()
