@@ -81,9 +81,13 @@ class SearchReposViewController: UIViewController {
     return button
   }()
   
-  //MARK:- URLSession constants
+  private var sortOrder: SortParam {
+    guard sortOption.selectedSegmentIndex == 0 else {
+      return .descending
+    }
+    return .ascending
+  }
   
-  let baseURL = "api.github.com"
   //MARK: - Lifecycle
   
   override func viewWillLayoutSubviews() {
@@ -107,7 +111,11 @@ class SearchReposViewController: UIViewController {
         let languageQ = languageSearchField.text else {return}
   
     let searchObject = NetworkObject(scheme: .https, host: .GitHub, path: "/search/repositories")
-  searchObject.performSimpleSearchRequest(parameters: [URLQueryItem(name: "q", value: "\(searchQ)+language:\(languageQ)"), URLQueryItem(name: "per_page", value: "50")]) {data in
+  searchObject.performSimpleSearchRequest(parameters:
+                                            [URLQueryItem(name: "q", value: "\(searchQ)+language:\(languageQ)"),
+                                             URLQueryItem(name: "per_page", value: "50"),
+                                             URLQueryItem(name: "sort", value: "stars"),
+                                             URLQueryItem(name: "order", value: sortOrder.rawValue)]) {data in
     var count = 0
     guard let data = data else {return}
     if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{

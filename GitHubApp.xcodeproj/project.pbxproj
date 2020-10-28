@@ -23,8 +23,8 @@
 		D85A381B253FA04800F5D8ED /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85A381A253FA04800F5D8ED /* LoginViewController.swift */; };
 		D85A3820253FA04A00F5D8ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85A381F253FA04A00F5D8ED /* Assets.xcassets */; };
 		D85A3823253FA04A00F5D8ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85A3821253FA04A00F5D8ED /* LaunchScreen.storyboard */; };
-		D86B3A9B2545FE6200C96A0F /* ResultingStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B3A9A2545FE6200C96A0F /* ResultingStruct.swift */; };
 		D86B3A9F2547750500C96A0F /* ReposParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B3A9E2547750500C96A0F /* ReposParser.swift */; };
+		D86DDAF22549DD8A00803917 /* SortParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DDAF12549DD8A00803917 /* SortParams.swift */; };
 		D8D251DD2545C7660031D97A /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D251DC2545C7660031D97A /* Owner.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,8 +48,8 @@
 		D85A381F253FA04A00F5D8ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D85A3822253FA04A00F5D8ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D85A3824253FA04A00F5D8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D86B3A9A2545FE6200C96A0F /* ResultingStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultingStruct.swift; sourceTree = "<group>"; };
 		D86B3A9E2547750500C96A0F /* ReposParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposParser.swift; sourceTree = "<group>"; };
+		D86DDAF12549DD8A00803917 /* SortParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortParams.swift; sourceTree = "<group>"; };
 		D8D251DC2545C7660031D97A /* Owner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
 		F3D8A2CBC20653BA24DF7D5A /* Pods_GitHubApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitHubApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -94,6 +94,7 @@
 		D80DF81825422996002BD1FA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D86DDAF02549DC6A00803917 /* Enums */,
 				D8D251DB2545C73C0031D97A /* CodableStructures */,
 			);
 			path = Model;
@@ -171,6 +172,14 @@
 			path = GitHubApp;
 			sourceTree = "<group>";
 		};
+		D86DDAF02549DC6A00803917 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				D86DDAF12549DD8A00803917 /* SortParams.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		D8D251DA2545C70A0031D97A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,7 +195,6 @@
 				D8D251DC2545C7660031D97A /* Owner.swift */,
 				D80DF82025422A8A002BD1FA /* Repo.swift */,
 				D81365342545E92E003D5B9F /* Repos.swift */,
-				D86B3A9A2545FE6200C96A0F /* ResultingStruct.swift */,
 			);
 			path = CodableStructures;
 			sourceTree = "<group>";
@@ -307,9 +315,9 @@
 			files = (
 				D80DF835254381A2002BD1FA /* SearchResultsViewController+UITableViewDataSource.swift in Sources */,
 				D85A381B253FA04800F5D8ED /* LoginViewController.swift in Sources */,
+				D86DDAF22549DD8A00803917 /* SortParams.swift in Sources */,
 				D80DF81E25422A1B002BD1FA /* SearchResultsViewController.swift in Sources */,
 				D80DF81A254229AB002BD1FA /* Networking.swift in Sources */,
-				D86B3A9B2545FE6200C96A0F /* ResultingStruct.swift in Sources */,
 				D84D142F254103B900656764 /* SearchReposViewController.swift in Sources */,
 				D80DF82125422A8A002BD1FA /* Repo.swift in Sources */,
 				D80DF83125437E13002BD1FA /* SearchResultsViewController+UiTableViewDelegate.swift in Sources */,
