@@ -8,6 +8,7 @@
 import UIKit
 
 extension SearchResultsViewController: UITableViewDelegate {
+  
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as! HeaderView
     header.configure(resultCount: totalCount)
@@ -16,10 +17,6 @@ extension SearchResultsViewController: UITableViewDelegate {
   
   func numberOfSections(in tableView: UITableView) -> Int {
     1
-  }
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print(results[indexPath.row])
   }
   
 }

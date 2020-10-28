@@ -63,7 +63,6 @@ class NetworkObject {
       dataTask.resume()
   }
   
-  
   func performSimpleSearchRequest ( parameters: [URLQueryItem],completion: @escaping  (Data?)->Void) {
     components.scheme = scheme.rawValue
     components.host = host.rawValue
@@ -89,5 +88,6 @@ class NetworkObject {
       }
       dataTask.resume()
   }
+  
 }
 

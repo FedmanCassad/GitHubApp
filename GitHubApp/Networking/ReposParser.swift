@@ -13,13 +13,14 @@ class RepoParser {
   init(data: Data) {
     self.data = data
   }
+  
   func getRepos() ->[Repo]? {
     let decoder = JSONDecoder()
     decoder.dataDecodingStrategy = .deferredToData
     guard let result = try? decoder.decode(Repos.self, from: data) else {
       return nil
     }
-   
     return result.repos
   }
+  
 }

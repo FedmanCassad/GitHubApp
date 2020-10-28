@@ -33,9 +33,8 @@ class RepoCell: UITableViewCell {
     
     return imageView
   }()
+  
   func configureLayout() {
-    
-    print("Я сейчас установил имя репозитория:\(repo.repoName)")
     repositoryName.frame.size = CGSize(width: UIScreen.main.bounds.width * 0.45, height: 20)
     repositoryName.frame.origin = CGPoint(x: 25, y: 0)
     repositoryName.numberOfLines = 1
@@ -66,6 +65,7 @@ class RepoCell: UITableViewCell {
     contentView.addSubview(nicknameLabel)
     contentView.addSubview(avatarImage)
   }
+  
   func configure(repo: Repo) {
     self.repo = repo
     repositoryName.text = repo.repoName
@@ -73,14 +73,13 @@ class RepoCell: UITableViewCell {
     nicknameLabel.text = repo.owner.login
     avatarImage.kf.setImage(with: URL(string: repo.owner.avatarURL.absoluteString))
     configureLayout()
-    
+  
     contentView.frame.size.width = UIScreen.main.bounds.width
     if repoDescriptionLabel.frame.maxY >= avatarImage.frame.maxY {
       contentView.bounds.size.height = repoDescriptionLabel.frame.maxY + 5}
     else {
       contentView.bounds.size.height = avatarImage.frame.maxY + 5
     }
-    
   }
   
 }

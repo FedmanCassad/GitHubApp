@@ -11,15 +11,10 @@ class HeaderView: UITableViewHeaderFooterView {
 private lazy var searchResultLabel: UILabel = {
  let label = UILabel()
   label.frame.size = CGSize(width: UIScreen.main.bounds.width, height: 15)
-  
   label.text = "Repositories found: \((resultCount) ?? 0)"
   label.frame.origin = CGPoint(x: 10, y: 10)
  return label
 }()
-  
-//  init () {
-//    super.init(reuseIdentifier: "HeaderView")
-//  }
   
   func configure(resultCount: Int) {
     self.resultCount = resultCount
@@ -27,10 +22,6 @@ private lazy var searchResultLabel: UILabel = {
     contentView.frame.size.height += 10
     self.addSubview(searchResultLabel)
   }
-  
-//  required init?(coder: NSCoder) {
-//    fatalError("init(coder:) has not been implemented")
-//  }
   
 }
   

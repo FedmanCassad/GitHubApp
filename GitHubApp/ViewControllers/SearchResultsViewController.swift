@@ -16,6 +16,7 @@ class SearchResultsViewController: UIViewController {
   var usedQueryItems: [URLQueryItem]?
   var currentPage: Int = 1
   var minIndexPathItem: Int = 50
+  
   init(results: [Repo], totalCount: Int, usedQueryItems: [URLQueryItem]?) {
     tableView = UITableView()
     self.results = results
@@ -35,14 +36,9 @@ class SearchResultsViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-  
-  }
-  
   override func viewWillLayoutSubviews() {
     tableView.frame = view.safeAreaLayoutGuide.layoutFrame
     view.addSubview(tableView)
   }
+  
 }

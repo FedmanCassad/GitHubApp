@@ -67,7 +67,7 @@ class SearchReposViewController: UIViewController {
     control.frame.size = control.intrinsicContentSize
     control.center.x = languageSearchField.center.x
     control.frame.origin.y = languageSearchField.frame.maxY + 15
- return control
+    return control
   }()
   
   lazy var searchButton: UIButton = {
@@ -106,30 +106,30 @@ class SearchReposViewController: UIViewController {
     view.backgroundColor = .white
   }
   
- @objc  private func search() {
-  guard let searchQ = repositoryNameSearchField.text,
-        let languageQ = languageSearchField.text else {return}
-  
+  @objc  private func search() {
+    guard let searchQ = repositoryNameSearchField.text,
+          let languageQ = languageSearchField.text else {return}
+    
     let searchObject = NetworkObject(scheme: .https, host: .GitHub, path: "/search/repositories")
-  searchObject.performSimpleSearchRequest(parameters:
-                                            [URLQueryItem(name: "q", value: "\(searchQ)+language:\(languageQ)"),
-                                             URLQueryItem(name: "per_page", value: "50"),
-                                             URLQueryItem(name: "sort", value: "stars"),
-                                             URLQueryItem(name: "order", value: sortOrder.rawValue)]) {data in
-    var count = 0
-    guard let data = data else {return}
-    if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
-    if let jsonCount = json["total_count"] as? Int {
-      count = jsonCount
+    searchObject.performSimpleSearchRequest(parameters:
+                                              [URLQueryItem(name: "q", value: "\(searchQ)+language:\(languageQ)"),
+                                               URLQueryItem(name: "per_page", value: "50"),
+                                               URLQueryItem(name: "sort", value: "stars"),
+                                               URLQueryItem(name: "order", value: sortOrder.rawValue)]) {data in
+      var count = 0
+      guard let data = data else {return}
+      if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
+        if let jsonCount = json["total_count"] as? Int {
+          count = jsonCount
+        }
+      }
+      let parser = RepoParser(data: data)
+      guard let results = parser.getRepos() else {return}
+      DispatchQueue.main.async {
+        let resultingVC = SearchResultsViewController(results: results, totalCount: count, usedQueryItems: searchObject.components.queryItems )
+        self.navigationController?.pushViewController(resultingVC, animated: true)
+      }
     }
-    }
-    let parser = RepoParser(data: data)
-    guard let results = parser.getRepos() else {return}
-    DispatchQueue.main.async {
-      let resultingVC = SearchResultsViewController(results: results, totalCount: count, usedQueryItems: searchObject.components.queryItems )
-    self.navigationController?.pushViewController(resultingVC, animated: true)
   }
-  }
-}
   
 }

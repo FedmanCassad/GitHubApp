@@ -8,6 +8,7 @@
 import UIKit
 
 extension SearchResultsViewController: UITableViewDataSource {
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return results.count
   }
@@ -22,11 +23,10 @@ extension SearchResultsViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    guard totalCount > 50, results.count < totalCount else {return}
     
+    guard totalCount > 50, results.count < totalCount else {return}
     guard let usedQueryItems = usedQueryItems else {return}
     if indexPath.item == results.count - 5 {
-      
       let searchObject = NetworkObject(scheme: .https, host: .GitHub, path: "/search/repositories")
       currentPage += 1
       let pageQueryItem = URLQueryItem(name: "page", value: "\(currentPage)")
@@ -38,7 +38,6 @@ extension SearchResultsViewController: UITableViewDataSource {
         let parser = RepoParser(data: data)
         guard let fetchingResult = parser.getRepos() else {return}
         self.results.append(contentsOf: fetchingResult)
-        
         DispatchQueue.main.async {
           tableView.reloadData()
         }

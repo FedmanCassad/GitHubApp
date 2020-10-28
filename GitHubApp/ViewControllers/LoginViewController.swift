@@ -34,7 +34,6 @@ class LoginViewController: UIViewController {
   private func layoutSubviews () {
     logo.frame = CGRect(x: 16, y: view.safeAreaInsets.top + 150, width: view.frame.width - 100, height: 50)
     logo.center.x = view.center.x
-    
     configureTextField(usernameField)
     configureTextField(passwordField)
     usernameField.frame.origin.y = logo.frame.maxY + 100
