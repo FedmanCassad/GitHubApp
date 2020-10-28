@@ -71,10 +71,10 @@ class RepoCell: UITableViewCell {
     repositoryName.text = repo.repoName
     repoDescriptionLabel.text = repo.repoDescription
     nicknameLabel.text = repo.owner.login
-    avatarImage.kf.setImage(with: URL(string: repo.owner.avatarURL.absoluteString))
-    configureLayout()
-  
     contentView.frame.size.width = UIScreen.main.bounds.width
+    configureLayout()
+      self.avatarImage.kf.setImage(with: URL(string: repo.owner.avatarURL.absoluteString))
+  
     if repoDescriptionLabel.frame.maxY >= avatarImage.frame.maxY {
       contentView.bounds.size.height = repoDescriptionLabel.frame.maxY + 5}
     else {
