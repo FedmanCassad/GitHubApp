@@ -34,6 +34,7 @@ class SearchReposViewController: UIViewController {
     let label = UILabel()
     label.text = "Search repository"
     label.sizeToFit()
+    label.overrideUserInterfaceStyle = .light
     label.center.x = helloLabel.center.x
     label.frame.origin.y = avatarImage.frame.maxY + 45
     return label
@@ -51,6 +52,7 @@ class SearchReposViewController: UIViewController {
   
   lazy var languageSearchField: UITextField = {
     let field = UITextField()
+    field.overrideUserInterfaceStyle = .light
     field.placeholder = "language"
     field.borderStyle = .roundedRect
     field.frame.size = CGSize(width: view.frame.width - 96, height: 25)
@@ -59,20 +61,33 @@ class SearchReposViewController: UIViewController {
     return field
   }()
   
+  lazy var sortOption: UISegmentedControl = {
+    let control = UISegmentedControl(items: ["Ascended", "Descended"])
+    control.selectedSegmentIndex = 0
+    control.frame.size = control.intrinsicContentSize
+    control.center.x = languageSearchField.center.x
+    control.frame.origin.y = languageSearchField.frame.maxY + 15
+    return control
+  }()
+  
   lazy var searchButton: UIButton = {
     let button = UIButton()
     button.setTitle("Start search", for: .normal)
     button.setTitleColor(.systemTeal, for: .normal)
     button.sizeToFit()
     button.center.x = view.center.x
-    button.frame.origin.y = languageSearchField.frame.maxY + 15
+    button.frame.origin.y = sortOption.frame.maxY + 15
     button.addTarget(self, action: #selector(search), for: .touchUpInside)
     return button
   }()
   
-  //MARK:- URLSession constants
+  private var sortOrder: SortParam {
+    guard sortOption.selectedSegmentIndex == 0 else {
+      return .descending
+    }
+    return .ascending
+  }
   
-  let baseURL = "api.github.com"
   //MARK: - Lifecycle
   
   override func viewWillLayoutSubviews() {
@@ -83,6 +98,7 @@ class SearchReposViewController: UIViewController {
     view.addSubview(searchRepositoryLabel)
     view.addSubview(repositoryNameSearchField)
     view.addSubview(languageSearchField)
+    view.addSubview(sortOption)
     view.addSubview(searchButton)
   }
   
@@ -90,21 +106,30 @@ class SearchReposViewController: UIViewController {
     view.backgroundColor = .white
   }
   
- @objc  private func search() {
-  
-  guard let searchQ = repositoryNameSearchField.text,
-        let languageQ = languageSearchField.text else {return}
-  
+  @objc  private func search() {
+    guard let searchQ = repositoryNameSearchField.text,
+          let languageQ = languageSearchField.text else {return}
+    
     let searchObject = NetworkObject(scheme: .https, host: .GitHub, path: "/search/repositories")
-  searchObject.performSimpleSearchRequest(parameters: [URLQueryItem(name: "q", value: "\(searchQ)+language:\(languageQ)")]) {data in
-    guard let data = data else {return}
-    let stringifiedResult = String(data: data, encoding: .utf8)
-  
-    print(stringifiedResult!)
-    
-    
+    searchObject.performSimpleSearchRequest(parameters:
+                                              [URLQueryItem(name: "q", value: "\(searchQ)+language:\(languageQ)"),
+                                               URLQueryItem(name: "per_page", value: "50"),
+                                               URLQueryItem(name: "sort", value: "stars"),
+                                               URLQueryItem(name: "order", value: sortOrder.rawValue)]) {data in
+      var count = 0
+      guard let data = data else {return}
+      if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
+        if let jsonCount = json["total_count"] as? Int {
+          count = jsonCount
+        }
+      }
+      let parser = RepoParser(data: data)
+      guard let results = parser.getRepos() else {return}
+      DispatchQueue.main.async {
+        let resultingVC = SearchResultsViewController(results: results, totalCount: count, usedQueryItems: searchObject.components.queryItems )
+        self.navigationController?.pushViewController(resultingVC, animated: true)
+      }
+    }
   }
-  
-}
   
 }

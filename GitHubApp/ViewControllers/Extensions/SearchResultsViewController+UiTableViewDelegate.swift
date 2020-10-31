@@ -8,9 +8,15 @@
 import UIKit
 
 extension SearchResultsViewController: UITableViewDelegate {
+  
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as! HeaderView
-    header.configure(resultCount: results.count)
+    header.configure(resultCount: totalCount)
     return header
   }
+  
+  func numberOfSections(in tableView: UITableView) -> Int {
+    1
+  }
+  
 }
