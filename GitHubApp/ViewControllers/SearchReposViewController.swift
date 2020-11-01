@@ -110,7 +110,7 @@ class SearchReposViewController: UIViewController {
     guard let searchQ = repositoryNameSearchField.text,
           let languageQ = languageSearchField.text else {return}
     
-    let searchObject = NetworkObject(scheme: .https, host: .GitHub, path: "/search/repositories")
+    let searchObject = NetworkObject(scheme: .https, host: .ApiGitHub, path: "/search/repositories")
     searchObject.performSimpleSearchRequest(parameters:
                                               [URLQueryItem(name: "q", value: "\(searchQ)+language:\(languageQ)"),
                                                URLQueryItem(name: "per_page", value: "50"),
@@ -126,7 +126,7 @@ class SearchReposViewController: UIViewController {
       let parser = RepoParser(data: data)
       guard let results = parser.getRepos() else {return}
       DispatchQueue.main.async {
-        let resultingVC = SearchResultsViewController(results: results, totalCount: count, usedQueryItems: searchObject.components.queryItems )
+        let resultingVC = SearchResultsViewController(results: results, totalCount: count, usedQueryItems: searchObject.usersComponents.queryItems )
         self.navigationController?.pushViewController(resultingVC, animated: true)
       }
     }

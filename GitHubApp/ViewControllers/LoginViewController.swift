@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import WebKit
 
 class LoginViewController: UIViewController {
   
@@ -14,6 +15,7 @@ class LoginViewController: UIViewController {
   var usernameField: UITextField!
   var passwordField: UITextField!
   var loginButton: UIButton!
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -63,8 +65,12 @@ class LoginViewController: UIViewController {
   }
   
   @objc func goToSearchrepoVC() {
-    let targetVC = SearchReposViewController()
-    navigationController?.pushViewController(targetVC, animated: true)
+    
+    let networkObject = NetworkObject(scheme: .https, host: .GitHub, path: "/login/oauth/authorize")
+    guard let request = networkObject.AuthenticationRequest() else {return}
+    let webViewController = CommonWebViewScontroller(request)
+
+    navigationController?.pushViewController(webViewController, animated: true)
   }
   
 }
