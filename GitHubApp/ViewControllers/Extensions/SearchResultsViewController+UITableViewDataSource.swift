@@ -27,7 +27,7 @@ extension SearchResultsViewController: UITableViewDataSource {
     guard totalCount > 50, results.count < totalCount else {return}
     guard let usedQueryItems = usedQueryItems else {return}
     if indexPath.row == results.count - 5 {
-      let searchObject = NetworkObject(scheme: .https, host: .GitHub, path: "/search/repositories")
+      let searchObject = NetworkObject(scheme: .https, host: .ApiGitHub, path: "/search/repositories")
       currentPage += 1
       let pageQueryItem = URLQueryItem(name: "page", value: "\(currentPage)")
       var fetchingQuery = usedQueryItems
@@ -36,7 +36,8 @@ extension SearchResultsViewController: UITableViewDataSource {
         guard let self = self,
               let data = data else {return}
         let parser = RepoParser(data: data)
-        guard let fetchingResult = parser.getRepos() else {return}
+        guard let fetchingResult = parser.getRepos() else
+        {return}
         self.results.append(contentsOf: fetchingResult)
         DispatchQueue.main.async {
           tableView.reloadData()

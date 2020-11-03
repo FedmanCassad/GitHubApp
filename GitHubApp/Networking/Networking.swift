@@ -12,7 +12,7 @@ class NetworkObject {
   private var scheme: ConnectionScheme
   private var host: KnownHosts
   private var path: String
-  private var components = URLComponents()
+  var components = URLComponents()
   private let cliendID = "bbbd309bad47cf82681a"
   private let secret = "67da701955a2f2009cd1ba08a2f251a910394f8a"
   
@@ -28,9 +28,7 @@ class NetworkObject {
   //    return path
   //  }
   //
-  var usersComponents: URLComponents {
-    return components
-  }
+ 
   
   enum ConnectionScheme: String {
     case https = "https"
@@ -61,6 +59,7 @@ class NetworkObject {
       self.host = host
       self.path = path
     }
+    
     self.host = .GitHub
     var components = URLComponents()
     components.scheme = self.scheme.rawValue
@@ -112,7 +111,7 @@ class NetworkObject {
     
     let request = URLRequest(url: url)
     let session = URLSession(configuration: .default)
-    
+    print(url)
     let dataTask = session.dataTask(with: request) {(data, response, error) in
       if let error = error {
         print("Error code: \(error.localizedDescription)")

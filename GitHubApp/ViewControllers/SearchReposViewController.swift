@@ -126,7 +126,7 @@ class SearchReposViewController: UIViewController {
       let parser = RepoParser(data: data)
       guard let results = parser.getRepos() else {return}
       DispatchQueue.main.async {
-        let resultingVC = SearchResultsViewController(results: results, totalCount: count, usedQueryItems: searchObject.usersComponents.queryItems )
+        let resultingVC = SearchResultsViewController(results: results, totalCount: count, usedQueryItems: searchObject.components.queryItems )
         self.navigationController?.pushViewController(resultingVC, animated: true)
       }
     }
