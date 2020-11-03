@@ -7,6 +7,9 @@
 
 import UIKit
 import  WebKit
+
+// Пока не используем потому, что не может колбек с гитхаба исполнить
+
 class CommonWebViewScontroller: UIViewController {
   
    var webView: WKWebView!
@@ -15,6 +18,7 @@ class CommonWebViewScontroller: UIViewController {
   override func loadView() {
     let configuration = WKWebViewConfiguration()
     webView = WKWebView(frame: .zero, configuration: configuration)
+    webView.translatesAutoresizingMaskIntoConstraints = false
     webView.uiDelegate = self
     webView.navigationDelegate = self
     view = webView

@@ -8,6 +8,7 @@
 import UIKit
 import Kingfisher
 import WebKit
+import SafariServices
 
 class LoginViewController: UIViewController {
   
@@ -67,10 +68,8 @@ class LoginViewController: UIViewController {
   @objc func goToSearchrepoVC() {
     
     let networkObject = NetworkObject(scheme: .https, host: .GitHub, path: "/login/oauth/authorize")
-    guard let request = networkObject.AuthenticationRequest() else {return}
-    let webViewController = CommonWebViewScontroller(request)
-
-    navigationController?.pushViewController(webViewController, animated: true)
+    guard let url = networkObject.AuthenticationRequest()?.url else {return}
+    UIApplication.shared.open(url)
   }
   
 }

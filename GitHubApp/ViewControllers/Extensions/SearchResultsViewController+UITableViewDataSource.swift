@@ -26,7 +26,7 @@ extension SearchResultsViewController: UITableViewDataSource {
     
     guard totalCount > 50, results.count < totalCount else {return}
     guard let usedQueryItems = usedQueryItems else {return}
-    if indexPath.item == results.count - 5 {
+    if indexPath.row == results.count - 5 {
       let searchObject = NetworkObject(scheme: .https, host: .GitHub, path: "/search/repositories")
       currentPage += 1
       let pageQueryItem = URLQueryItem(name: "page", value: "\(currentPage)")

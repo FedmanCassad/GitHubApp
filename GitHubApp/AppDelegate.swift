@@ -10,7 +10,15 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 var window: UIWindow?
-
+  
+  func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    
+   let controller =  window?.rootViewController as! UINavigationController
+    let searchVC = SearchReposViewController()
+    controller.viewControllers = [searchVC]
+    
+    return true
+  }
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     initiateWindow()
