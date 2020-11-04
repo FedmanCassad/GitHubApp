@@ -145,5 +145,7 @@ class NetworkObject {
     dataTask.resume()
   }
   
+
+  
 }
 

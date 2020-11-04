@@ -14,12 +14,12 @@ class Parser {
     self.data = data
   }
   
-  func getToken() -> String? {
+  func getToken() -> Data? {
     var token = String()
     if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
       if let jsonToken = json["access_token"] as? String {
         token = jsonToken
-        return token
+        return token.data(using: .utf8)
       }
     }
     return nil

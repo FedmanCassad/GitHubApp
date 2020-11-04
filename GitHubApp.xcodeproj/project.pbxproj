@@ -30,6 +30,9 @@
 		D8B6A7EE254F4E5E00259420 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B6A7ED254F4E5E00259420 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift */; };
 		D8D251DD2545C7660031D97A /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D251DC2545C7660031D97A /* Owner.swift */; };
 		D8E266E52552160A00C9D420 /* URL+EasyParametersExtruder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E266E42552160A00C9D420 /* URL+EasyParametersExtruder.swift */; };
+		D8E266EB2552342000C9D420 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E266EA2552342000C9D420 /* KeychainService.swift */; };
+		D8E266EF2552356700C9D420 /* SensitiveDataWarapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E266EE2552356700C9D420 /* SensitiveDataWarapper.swift */; };
+		D8E266F325523DD700C9D420 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E266F225523DD700C9D420 /* CurrentUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +62,9 @@
 		D8B6A7ED254F4E5E00259420 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift"; sourceTree = "<group>"; };
 		D8D251DC2545C7660031D97A /* Owner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
 		D8E266E42552160A00C9D420 /* URL+EasyParametersExtruder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+EasyParametersExtruder.swift"; sourceTree = "<group>"; };
+		D8E266EA2552342000C9D420 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		D8E266EE2552356700C9D420 /* SensitiveDataWarapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensitiveDataWarapper.swift; sourceTree = "<group>"; };
+		D8E266F225523DD700C9D420 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		F3D8A2CBC20653BA24DF7D5A /* Pods_GitHubApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitHubApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -171,6 +177,8 @@
 		D85A3815253FA04800F5D8ED /* GitHubApp */ = {
 			isa = PBXGroup;
 			children = (
+				D8E266ED2552350E00C9D420 /* Interfaces */,
+				D8E266E92552340100C9D420 /* Security */,
 				D8D251DA2545C70A0031D97A /* Networking */,
 				D80DF82425422CAD002BD1FA /* Cells */,
 				D80DF81825422996002BD1FA /* Model */,
@@ -207,6 +215,7 @@
 				D8D251DC2545C7660031D97A /* Owner.swift */,
 				D80DF82025422A8A002BD1FA /* Repo.swift */,
 				D81365342545E92E003D5B9F /* Repos.swift */,
+				D8E266F225523DD700C9D420 /* CurrentUser.swift */,
 			);
 			path = CodableStructures;
 			sourceTree = "<group>";
@@ -217,6 +226,22 @@
 				D8E266E42552160A00C9D420 /* URL+EasyParametersExtruder.swift */,
 			);
 			path = NetworkGlobalExtensions;
+			sourceTree = "<group>";
+		};
+		D8E266E92552340100C9D420 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				D8E266EA2552342000C9D420 /* KeychainService.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
+		D8E266ED2552350E00C9D420 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				D8E266EE2552356700C9D420 /* SensitiveDataWarapper.swift */,
+			);
+			path = Interfaces;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,6 +360,7 @@
 			files = (
 				D80DF835254381A2002BD1FA /* SearchResultsViewController+UITableViewDataSource.swift in Sources */,
 				D85A381B253FA04800F5D8ED /* LoginViewController.swift in Sources */,
+				D8E266F325523DD700C9D420 /* CurrentUser.swift in Sources */,
 				D86DDAF22549DD8A00803917 /* SortParams.swift in Sources */,
 				D80DF81E25422A1B002BD1FA /* SearchResultsViewController.swift in Sources */,
 				D80DF81A254229AB002BD1FA /* Networking.swift in Sources */,
@@ -343,9 +369,11 @@
 				D80DF82125422A8A002BD1FA /* Repo.swift in Sources */,
 				D8B6A7EB254F4B7600259420 /* CommonWebViewController.swift in Sources */,
 				D80DF83125437E13002BD1FA /* SearchResultsViewController+UiTableViewDelegate.swift in Sources */,
+				D8E266EF2552356700C9D420 /* SensitiveDataWarapper.swift in Sources */,
 				D80DF82D2543761A002BD1FA /* HeaderView.swift in Sources */,
 				D80DF81625410992002BD1FA /* UIImageView+makeRounded.swift in Sources */,
 				D86B3A9F2547750500C96A0F /* Parser.swift in Sources */,
+				D8E266EB2552342000C9D420 /* KeychainService.swift in Sources */,
 				D85A3817253FA04800F5D8ED /* AppDelegate.swift in Sources */,
 				D80DF82725422CC5002BD1FA /* RepoCell.swift in Sources */,
 				D8B6A7EE254F4E5E00259420 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift in Sources */,

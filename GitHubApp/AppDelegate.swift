@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Security
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,10 +20,12 @@ var window: UIWindow?
       networkObject.getAuthorizationToken(code: code) {data in
         guard let data = data else {return}
         let parser = Parser(data: data)
-        print(parser.getToken())
-        
+        guard let token = parser.getToken() else {return}
+       let _ =  KeyChainService.save(key: "currentAccount", data: token)
       }
     }
+    
+    
     let vc = SearchReposViewController()
     if let nav = window?.rootViewController as? UINavigationController {
       nav.pushViewController(vc, animated: true)
