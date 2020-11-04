@@ -12,24 +12,17 @@ class NetworkObject {
   private var scheme: ConnectionScheme
   private var host: KnownHosts
   private var path: String
-  var components = URLComponents()
+  var components: URLComponents {
+    var components = URLComponents()
+    components.scheme = scheme.rawValue
+    components.host = host.rawValue
+    components.path = path
+    return components
+  }
   private let cliendID = "bbbd309bad47cf82681a"
   private let secret = "67da701955a2f2009cd1ba08a2f251a910394f8a"
-  
-  //  private var usersScheme: ConnectionScheme {
-  //    return scheme
-  //  }
-  //
-  //  private var usersHost: KnownHosts {
-  //    return host
-  //  }
-  //
-  //  private var usersPath: String {
-  //    return path
-  //  }
-  //
- 
-  
+  private var accessToken: String?
+
   enum ConnectionScheme: String {
     case https = "https"
     case ftp = "ftp"
@@ -53,7 +46,7 @@ class NetworkObject {
     self.path = path
   }
   
-  func AuthenticationRequest(scheme: ConnectionScheme? = nil ,host: KnownHosts? = nil, path: String? = nil) -> URLRequest?  {
+  func initialAuthenticationRequest(scheme: ConnectionScheme? = nil ,host: KnownHosts? = nil, path: String? = nil) -> URLRequest?  {
     if let scheme = scheme, let host = host, let path = path {
       self.scheme = scheme
       self.host = host
@@ -73,13 +66,40 @@ class NetworkObject {
     return request
   }
   
+  func getAuthorizationToken(code: String, completion: @escaping (Data?) -> Void){
+    self.scheme = .https
+    self.host = .GitHub
+    self.path = "/login/oauth/access_token"
+    let query: [URLQueryItem] = [URLQueryItem(name: "client_id", value: cliendID), URLQueryItem(name: "client_secret", value: secret), URLQueryItem(name: "code", value: code)]
+    var workingComponentsCopy = components
+    workingComponentsCopy.queryItems = query
+    guard let url = workingComponentsCopy.url else {return}
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.allHTTPHeaderFields = ["Accept" : "application/json"]
+    let session = URLSession(configuration: .default)
+    let task = session.dataTask(with: request) {(data, response, error) in
+      if let error = error {
+        print("Error code: \(error.localizedDescription)")
+      }
+      if let response = response as? HTTPURLResponse {
+        print("http status code: \(response.statusCode)")
+      }
+      if let data = data {
+        completion(data)
+      }
+    }
+    task.resume()
+  }
+  
   func performSimpleSearchRequest (scheme: ConnectionScheme,host: KnownHosts, path: String, parameters: [URLQueryItem], completion: @escaping (Data?) -> Void) {
     
-    components.scheme = scheme.rawValue
-    components.host = host.rawValue
-    components.path = path
-    components.queryItems = parameters
-    guard let url = components.url else {
+    self.scheme = scheme
+    self.host = host
+    self.path = path
+    var workingComponentsCopy = self.components
+    workingComponentsCopy.queryItems = parameters
+    guard let url = workingComponentsCopy.url else {
       return
     }
     
@@ -101,11 +121,10 @@ class NetworkObject {
   }
   
   func performSimpleSearchRequest ( parameters: [URLQueryItem],completion: @escaping  (Data?) -> Void) {
-    components.scheme = scheme.rawValue
-    components.host = host.rawValue
-    components.path = path
-    components.queryItems = parameters
-    guard let url = components.url else {
+    var workingComponentsCopy = components
+    workingComponentsCopy.queryItems =  parameters
+    
+    guard let url = workingComponentsCopy.url else {
       return
     }
     

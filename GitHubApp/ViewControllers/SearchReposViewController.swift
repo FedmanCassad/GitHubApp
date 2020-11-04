@@ -111,11 +111,12 @@ class SearchReposViewController: UIViewController {
           let languageQ = languageSearchField.text else {return}
     
     let searchObject = NetworkObject(scheme: .https, host: .ApiGitHub, path: "/search/repositories")
-    searchObject.performSimpleSearchRequest(parameters:
-                                              [URLQueryItem(name: "q", value: "\(searchQ)+language:\(languageQ)"),
-                                               URLQueryItem(name: "per_page", value: "50"),
-                                               URLQueryItem(name: "sort", value: "stars"),
-                                               URLQueryItem(name: "order", value: sortOrder.rawValue)]) {data in
+    let query = [URLQueryItem(name: "q", value: "\(searchQ)+language:\(languageQ)"),
+                URLQueryItem(name: "per_page", value: "50"),
+                URLQueryItem(name: "sort", value: "stars"),
+                URLQueryItem(name: "order", value: sortOrder.rawValue)]
+    searchObject.performSimpleSearchRequest(parameters: query
+                                              ) {data in
       var count = 0
       guard let data = data else {return}
       if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
@@ -123,10 +124,10 @@ class SearchReposViewController: UIViewController {
           count = jsonCount
         }
       }
-      let parser = RepoParser(data: data)
+      let parser = Parser(data: data)
       guard let results = parser.getRepos() else {return}
       DispatchQueue.main.async {
-        let resultingVC = SearchResultsViewController(results: results, totalCount: count, usedQueryItems: searchObject.components.queryItems )
+        let resultingVC = SearchResultsViewController(results: results, totalCount: count, usedQueryItems: query)
         self.navigationController?.pushViewController(resultingVC, animated: true)
       }
     }

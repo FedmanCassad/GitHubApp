@@ -12,10 +12,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 var window: UIWindow?
   
   func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-    
-   let controller =  window?.rootViewController as! UINavigationController
-    let searchVC = SearchReposViewController()
-    controller.viewControllers = [searchVC]
+
+    guard  let recievedParameters = url.params() else {return false}
+    if let code = recievedParameters["code"] as? String {
+      let networkObject = NetworkObject(scheme: .https, host: .GitHub, path: "/login/oauth/access_token")
+      networkObject.getAuthorizationToken(code: code) {data in
+        guard let data = data else {return}
+        let parser = Parser(data: data)
+        print(parser.getToken())
+        
+      }
+    }
+    let vc = SearchReposViewController()
+    if let nav = window?.rootViewController as? UINavigationController {
+      nav.pushViewController(vc, animated: true)
+    }
     
     return true
   }

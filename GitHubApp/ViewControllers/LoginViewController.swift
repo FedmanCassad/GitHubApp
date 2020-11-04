@@ -68,7 +68,7 @@ class LoginViewController: UIViewController {
   @objc func goToSearchrepoVC() {
     
     let networkObject = NetworkObject(scheme: .https, host: .GitHub, path: "/login/oauth/authorize")
-    guard let url = networkObject.AuthenticationRequest()?.url else {return}
+    guard let url = networkObject.initialAuthenticationRequest()?.url else {return}
     UIApplication.shared.open(url)
   }
   

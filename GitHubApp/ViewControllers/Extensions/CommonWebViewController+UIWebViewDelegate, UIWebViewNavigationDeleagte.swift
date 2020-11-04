@@ -14,6 +14,6 @@ extension CommonWebViewScontroller: WKUIDelegate,WKNavigationDelegate, WKScriptM
   }
   
   func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-    print(webView.url)
+   
   }
 }
