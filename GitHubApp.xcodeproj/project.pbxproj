@@ -25,9 +25,9 @@
 		D85A3823253FA04A00F5D8ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D85A3821253FA04A00F5D8ED /* LaunchScreen.storyboard */; };
 		D86B3A9F2547750500C96A0F /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86B3A9E2547750500C96A0F /* Parser.swift */; };
 		D86DDAF22549DD8A00803917 /* SortParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86DDAF12549DD8A00803917 /* SortParams.swift */; };
+		D89A85442554AC0900CBD3F5 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A85432554AC0900CBD3F5 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift */; };
 		D8B6A7E7254E2E3500259420 /* UIViewController+CommonAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B6A7E6254E2E3500259420 /* UIViewController+CommonAlert.swift */; };
 		D8B6A7EB254F4B7600259420 /* CommonWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B6A7EA254F4B7600259420 /* CommonWebViewController.swift */; };
-		D8B6A7EE254F4E5E00259420 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B6A7ED254F4E5E00259420 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift */; };
 		D8D251DD2545C7660031D97A /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D251DC2545C7660031D97A /* Owner.swift */; };
 		D8E266E52552160A00C9D420 /* URL+EasyParametersExtruder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E266E42552160A00C9D420 /* URL+EasyParametersExtruder.swift */; };
 		D8E266EB2552342000C9D420 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E266EA2552342000C9D420 /* KeychainService.swift */; };
@@ -57,9 +57,9 @@
 		D85A3824253FA04A00F5D8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D86B3A9E2547750500C96A0F /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		D86DDAF12549DD8A00803917 /* SortParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortParams.swift; sourceTree = "<group>"; };
+		D89A85432554AC0900CBD3F5 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift"; sourceTree = "<group>"; };
 		D8B6A7E6254E2E3500259420 /* UIViewController+CommonAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+CommonAlert.swift"; sourceTree = "<group>"; };
 		D8B6A7EA254F4B7600259420 /* CommonWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWebViewController.swift; sourceTree = "<group>"; };
-		D8B6A7ED254F4E5E00259420 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift"; sourceTree = "<group>"; };
 		D8D251DC2545C7660031D97A /* Owner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
 		D8E266E42552160A00C9D420 /* URL+EasyParametersExtruder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+EasyParametersExtruder.swift"; sourceTree = "<group>"; };
 		D8E266EA2552342000C9D420 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 			children = (
 				D80DF83025437E13002BD1FA /* SearchResultsViewController+UiTableViewDelegate.swift */,
 				D80DF834254381A2002BD1FA /* SearchResultsViewController+UITableViewDataSource.swift */,
-				D8B6A7ED254F4E5E00259420 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift */,
+				D89A85432554AC0900CBD3F5 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -364,6 +364,7 @@
 				D86DDAF22549DD8A00803917 /* SortParams.swift in Sources */,
 				D80DF81E25422A1B002BD1FA /* SearchResultsViewController.swift in Sources */,
 				D80DF81A254229AB002BD1FA /* Networking.swift in Sources */,
+				D89A85442554AC0900CBD3F5 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift in Sources */,
 				D84D142F254103B900656764 /* SearchReposViewController.swift in Sources */,
 				D8E266E52552160A00C9D420 /* URL+EasyParametersExtruder.swift in Sources */,
 				D80DF82125422A8A002BD1FA /* Repo.swift in Sources */,
@@ -376,7 +377,6 @@
 				D8E266EB2552342000C9D420 /* KeychainService.swift in Sources */,
 				D85A3817253FA04800F5D8ED /* AppDelegate.swift in Sources */,
 				D80DF82725422CC5002BD1FA /* RepoCell.swift in Sources */,
-				D8B6A7EE254F4E5E00259420 /* CommonWebViewController+UIWebViewDelegate, UIWebViewNavigationDeleagte.swift in Sources */,
 				D8D251DD2545C7660031D97A /* Owner.swift in Sources */,
 				D8B6A7E7254E2E3500259420 /* UIViewController+CommonAlert.swift in Sources */,
 				D81365352545E92E003D5B9F /* Repos.swift in Sources */,

@@ -10,6 +10,17 @@ import Kingfisher
 
 class SearchReposViewController: UIViewController {
   
+  private var user: CurrentUser? {
+    willSet {
+      guard let newValue = newValue else {return}
+      avatarImage.kf.setImage(with: URL(string:newValue.avatarURL))
+      helloLabel.text = "Hello, \(newValue.login)!"
+      helloLabel.sizeToFit()
+      helloLabel.center.x = view.center.x
+      helloLabel.center.y = 80
+    }
+  }
+  
   lazy var helloLabel: UILabel = {
     let label = UILabel()
     label.text = "Hello"
@@ -25,7 +36,6 @@ class SearchReposViewController: UIViewController {
     imageView.center.x = helloLabel.center.x
     imageView.frame.origin.y = helloLabel.frame.maxY + 25
     imageView.makeRounded()
-    
     imageView.image = UIImage(named: "avatar")
     return imageView
   }()
@@ -104,6 +114,52 @@ class SearchReposViewController: UIViewController {
   
   override func viewDidLoad() {
     view.backgroundColor = .white
+    let networkObject = NetworkObject(scheme: .https, host: .GitHub, path: "/login/oauth/access_token")
+    guard let tempCode = KeyChainService.recieve(key: "temporaryCode") else {
+      navigateBackToLoginScreen()
+      return
+    }
+    if let token = KeyChainService.recieve(key: "accessToken") {
+      if let currentUser = user {
+        helloLabel.text = "Hello, \(currentUser.login)!"
+        avatarImage.kf.setImage(with: URL(string: currentUser.avatarURL))
+      } else {
+        networkObject.getCurrentUser(token: token) {[weak self] user in
+          guard let self = self, let user = user else {return}
+          DispatchQueue.main.async {
+            self.user = user
+          }
+        }
+      }
+      
+    } else {
+      if let strigyfiedCode = String(data: tempCode, encoding: .utf8) {
+        
+        networkObject.getAuthorizationToken(code: strigyfiedCode) {[weak self] data in
+          guard let self = self else {return}
+          guard let data = data else {return}
+          guard let token = Parser.getToken(data) else
+          {
+            DispatchQueue.main.async {
+              self.navigateBackToLoginScreen()
+            }
+            return}
+          let _ = KeyChainService.save(key: "accessToken", data: token)
+          networkObject.getCurrentUser(token: token) {user in
+            DispatchQueue.main.async {
+              self.user = user
+            }
+          }
+        }
+      }
+    }
+  }
+  private func navigateBackToLoginScreen() {
+    if let navigationController = navigationController {
+      let loginVC = LoginViewController()
+      navigationController.viewControllers = [loginVC, self]
+      navigationController.popViewController(animated: true)
+    }
   }
   
   @objc  private func search() {
@@ -112,11 +168,12 @@ class SearchReposViewController: UIViewController {
     
     let searchObject = NetworkObject(scheme: .https, host: .ApiGitHub, path: "/search/repositories")
     let query = [URLQueryItem(name: "q", value: "\(searchQ)+language:\(languageQ)"),
-                URLQueryItem(name: "per_page", value: "50"),
-                URLQueryItem(name: "sort", value: "stars"),
-                URLQueryItem(name: "order", value: sortOrder.rawValue)]
+                 URLQueryItem(name: "per_page", value: "50"),
+                 URLQueryItem(name: "sort", value: "stars"),
+                 URLQueryItem(name: "order", value: sortOrder.rawValue)]
+    
     searchObject.performSimpleSearchRequest(parameters: query
-                                              ) {data in
+    ) {data in
       var count = 0
       guard let data = data else {return}
       if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
@@ -124,8 +181,7 @@ class SearchReposViewController: UIViewController {
           count = jsonCount
         }
       }
-      let parser = Parser(data: data)
-      guard let results = parser.getRepos() else {return}
+      guard let results = Parser.getRepos(data) else {return}
       DispatchQueue.main.async {
         let resultingVC = SearchResultsViewController(results: results, totalCount: count, usedQueryItems: query)
         self.navigationController?.pushViewController(resultingVC, animated: true)

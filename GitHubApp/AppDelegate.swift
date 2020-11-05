@@ -10,45 +10,42 @@ import Security
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-var window: UIWindow?
-  
+  var window: UIWindow?
+ 
+ 
   func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-
-    guard  let recievedParameters = url.params() else {return false}
+    
+    guard  let recievedParameters = url.params()
+    else
+    {return false}
     if let code = recievedParameters["code"] as? String {
-      let networkObject = NetworkObject(scheme: .https, host: .GitHub, path: "/login/oauth/access_token")
-      networkObject.getAuthorizationToken(code: code) {data in
-        guard let data = data else {return}
-        let parser = Parser(data: data)
-        guard let token = parser.getToken() else {return}
-       let _ =  KeyChainService.save(key: "currentAccount", data: token)
+      if let codeData = code.data(using: .utf8){
+      let _ =  KeyChainService.save(key: "temporaryCode", data: codeData)
       }
-    }
-    
-    
-    let vc = SearchReposViewController()
+      }
     if let nav = window?.rootViewController as? UINavigationController {
-      nav.pushViewController(vc, animated: true)
+      let searchVC = SearchReposViewController()
+      nav.pushViewController(searchVC, animated: true)
     }
     
     return true
   }
-
+  
+  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    initiateWindow()
+   
+      self.initiateWindow()
     return true
   }
-
- func initiateWindow() {
-  self.window = UIWindow(frame: UIScreen.main.bounds)
-    let loginVC = LoginViewController()
+  
+  func initiateWindow() {
+    window = UIWindow(frame: UIScreen.main.bounds)
     let navigationController = UINavigationController()
-  navigationController.viewControllers = [loginVC]
-    window?.rootViewController = navigationController
-    window?.makeKeyAndVisible()
-
+      let searchVC = SearchReposViewController()
+      navigationController.viewControllers = [searchVC]
+     self.window?.rootViewController = navigationController
+      self.window?.makeKeyAndVisible()
   }
-
-
 }
+
 

@@ -22,7 +22,7 @@ class NetworkObject {
   private let cliendID = "bbbd309bad47cf82681a"
   private let secret = "67da701955a2f2009cd1ba08a2f251a910394f8a"
   private var accessToken: String?
-
+  
   enum ConnectionScheme: String {
     case https = "https"
     case ftp = "ftp"
@@ -46,7 +46,10 @@ class NetworkObject {
     self.path = path
   }
   
-  func initialAuthenticationRequest(scheme: ConnectionScheme? = nil ,host: KnownHosts? = nil, path: String? = nil) -> URLRequest?  {
+  func initialAuthenticationRequest(scheme: ConnectionScheme? = nil,
+                                    host: KnownHosts? = nil,
+                                    path: String? = nil
+  ) -> URLRequest?  {
     if let scheme = scheme, let host = host, let path = path {
       self.scheme = scheme
       self.host = host
@@ -59,9 +62,7 @@ class NetworkObject {
     components.path = self.path
     components.host = self.host.rawValue
     components.queryItems = [URLQueryItem(name: "client_id", value: cliendID)]
-    
     guard let url = components.url else {return nil}
-    print(url)
     let request = URLRequest(url: url)
     return request
   }
@@ -92,8 +93,11 @@ class NetworkObject {
     task.resume()
   }
   
-  func performSimpleSearchRequest (scheme: ConnectionScheme,host: KnownHosts, path: String, parameters: [URLQueryItem], completion: @escaping (Data?) -> Void) {
-    
+  func performSimpleSearchRequest (scheme: ConnectionScheme,
+                                   host: KnownHosts,
+                                   path: String,
+                                   parameters: [URLQueryItem],
+                                   completion: @escaping (Data?) -> Void) {
     self.scheme = scheme
     self.host = host
     self.path = path
@@ -130,7 +134,6 @@ class NetworkObject {
     
     let request = URLRequest(url: url)
     let session = URLSession(configuration: .default)
-    print(url)
     let dataTask = session.dataTask(with: request) {(data, response, error) in
       if let error = error {
         print("Error code: \(error.localizedDescription)")
@@ -145,7 +148,32 @@ class NetworkObject {
     dataTask.resume()
   }
   
-
+   func getCurrentUser(token: Data, completion: @escaping (CurrentUser?) -> Void) {
+    host = .ApiGitHub
+    path = "/user"
+    let components = self.components
+    guard let stringigiedToken = String(data: token, encoding: .utf8) else {return}
+    guard let url = components.url else {return}
+    var request = URLRequest(url: url)
+    request.addValue("token \(stringigiedToken)", forHTTPHeaderField: "Authorization")
+    let session = URLSession(configuration: .default)
+    let dataTask = session.dataTask(with: request) {data, response, error in
+      if let response = response as? HTTPURLResponse {
+        print(response.statusCode)
+      }
+      if let error = error {
+        print("Error code: \(error.localizedDescription)")
+      }
+      if let data = data {
+        if let user = try? JSONDecoder().decode(CurrentUser.self, from: data) {
+          completion(user)
+        } else {
+          completion(nil)
+        }
+      }
+    }
+    dataTask.resume()
+  }
   
 }
 

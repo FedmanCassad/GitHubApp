@@ -7,13 +7,12 @@
 
 import Foundation
 
-struct CurrentUser {
+struct CurrentUser: Codable {
  var login: String
- var avatarURl: String
+ var avatarURL: String
   
   enum CodingKeys: String, CodingKey {
     case login
     case avatarURL = "avatar_url"
   }
-
 }

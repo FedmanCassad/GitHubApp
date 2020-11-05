@@ -8,12 +8,10 @@
 import UIKit
 import  WebKit
 
-// Пока не используем потому, что не может колбек с гитхаба исполнить
-
 class CommonWebViewScontroller: UIViewController {
   
-   var webView: WKWebView!
-  var request: URLRequest
+  var webView: WKWebView!
+  var url: URL
   
   override func loadView() {
     let configuration = WKWebViewConfiguration()
@@ -24,8 +22,8 @@ class CommonWebViewScontroller: UIViewController {
     view = webView
   }
   
-  init(_ request: URLRequest) {
-    self.request = request
+  init(_ url: URL) {
+    self.url = url
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -34,12 +32,9 @@ class CommonWebViewScontroller: UIViewController {
   }
   
   override func viewDidLoad() {
-    loadLoginRequest()
-  }
-  
-  func loadLoginRequest() {
+    let request = URLRequest(url: url)
     webView.load(request)
   }
-
+  
 }
 

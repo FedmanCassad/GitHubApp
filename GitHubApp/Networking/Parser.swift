@@ -8,13 +8,9 @@
 import Foundation
 
 class Parser {
-  private var data: Data
+
   
-  init(data: Data) {
-    self.data = data
-  }
-  
-  func getToken() -> Data? {
+ static func getToken(_ data: Data) -> Data? {
     var token = String()
     if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
       if let jsonToken = json["access_token"] as? String {
@@ -22,10 +18,10 @@ class Parser {
         return token.data(using: .utf8)
       }
     }
-    return nil
+  return nil
   }
   
-  func getRepos() -> [Repo]? {
+ static func getRepos(_ data: Data) -> [Repo]? {
     let decoder = JSONDecoder()
     decoder.dataDecodingStrategy = .deferredToData
     guard let result = try? decoder.decode(Repos.self, from: data) else {
