@@ -19,7 +19,6 @@ class LoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     logo = .init()
-  
     loginButton = .init()
     loginButton.addTarget(self, action: #selector(goToSearchrepoVC), for: .touchUpInside)
     logo.contentMode = .scaleAspectFit
@@ -45,11 +44,8 @@ class LoginViewController: UIViewController {
     view.addSubview(logo)
     view.addSubview(loginButton)
   }
-  
 
-  
   @objc func goToSearchrepoVC() {
-    
     let networkObject = NetworkObject(scheme: .https, host: .GitHub, path: "/login/oauth/authorize")
     guard let url = networkObject.initialAuthenticationRequest()?.url else {return}
     UIApplication.shared.open(url)

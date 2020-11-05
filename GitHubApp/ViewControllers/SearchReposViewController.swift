@@ -134,7 +134,6 @@ class SearchReposViewController: UIViewController {
       
     } else {
       if let strigyfiedCode = String(data: tempCode, encoding: .utf8) {
-        
         networkObject.getAuthorizationToken(code: strigyfiedCode) {[weak self] data in
           guard let self = self else {return}
           guard let data = data else {return}
@@ -143,7 +142,8 @@ class SearchReposViewController: UIViewController {
             DispatchQueue.main.async {
               self.navigateBackToLoginScreen()
             }
-            return}
+            return
+          }
           let _ = KeyChainService.save(key: "accessToken", data: token)
           networkObject.getCurrentUser(token: token) {user in
             DispatchQueue.main.async {
@@ -154,6 +154,7 @@ class SearchReposViewController: UIViewController {
       }
     }
   }
+  
   private func navigateBackToLoginScreen() {
     if let navigationController = navigationController {
       let loginVC = LoginViewController()

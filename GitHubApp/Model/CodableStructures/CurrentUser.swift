@@ -15,4 +15,5 @@ struct CurrentUser: Codable {
     case login
     case avatarURL = "avatar_url"
   }
+  
 }
