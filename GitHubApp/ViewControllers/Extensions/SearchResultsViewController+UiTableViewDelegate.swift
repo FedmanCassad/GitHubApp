@@ -19,4 +19,10 @@ extension SearchResultsViewController: UITableViewDelegate {
     1
   }
   
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let url = URL(string:results[indexPath.row].htmlURL) else {return}
+    let repoWebView = CommonWebViewScontroller(url)
+    navigationController?.pushViewController(repoWebView, animated: true)
+  }
+  
 }

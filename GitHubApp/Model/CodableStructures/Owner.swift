@@ -8,7 +8,7 @@ import UIKit
 
 struct Owner: Codable {
   let login: String
-  let  avatarURL: URL
+  let avatarURL: URL
   
   private enum CodingKeys: String, CodingKey {
     case login
