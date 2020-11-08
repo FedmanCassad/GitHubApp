@@ -8,19 +8,19 @@
 import Foundation
 
 extension URL {
+  
   func params() -> [String:Any]? {
     var dict = [String:Any]()
-    
-    if let components = URLComponents(url: self, resolvingAgainstBaseURL: false) {
-      if let queryItems = components.queryItems {
-        for item in queryItems {
-          dict[item.name] = item.value
-        }
-      }
-      return dict
-    } else {
+    guard let components = URLComponents(url: self, resolvingAgainstBaseURL: false) else {
       return nil
     }
+    guard let queryItems = components.queryItems else {
+      return nil
+    }
+    for item in queryItems {
+      dict[item.name] = item.value
+    }
+    return dict
   }
   
 }

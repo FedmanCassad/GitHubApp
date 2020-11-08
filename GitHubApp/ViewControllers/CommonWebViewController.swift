@@ -32,7 +32,12 @@ class CommonWebViewScontroller: UIViewController {
   }
   
   override func viewDidLoad() {
-    let request = URLRequest(url: url)
+    var request = URLRequest(url: url)
+    guard let token = KeyChainService.recieve(key: "accessToken") else
+    {return}
+    let stringToken = String(data: token, encoding: .utf8)
+   
+    request.addValue("token \(stringToken!)", forHTTPHeaderField: "Authorization")
     webView.load(request)
   }
   

@@ -23,15 +23,13 @@ extension SearchResultsViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    
     guard totalCount > 50, results.count < totalCount else {return}
-    guard let usedQueryItems = usedQueryItems else
-    {return}
+    guard let usedQueryItems = usedQueryItems else {return}
+    
     if indexPath.row == results.count - 15 {
       let searchObject = NetworkObject(scheme: .https, host: .ApiGitHub, path: "/search/repositories")
       currentPage += 1
       let pageQueryItem = URLQueryItem(name: "page", value: "\(currentPage)")
-      
       var fetchingQuery = usedQueryItems
       fetchingQuery.append(pageQueryItem)
       searchObject.performSimpleSearchRequest(parameters: fetchingQuery) {[weak self] data in

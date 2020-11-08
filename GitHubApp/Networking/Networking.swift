@@ -124,7 +124,7 @@ class NetworkObject {
     dataTask.resume()
   }
   
-  func performSimpleSearchRequest ( parameters: [URLQueryItem],completion: @escaping  (Data?) -> Void) {
+  func performSimpleSearchRequest ( parameters: [URLQueryItem], completion: @escaping  (Data?) -> Void) {
     var workingComponentsCopy = components
     workingComponentsCopy.queryItems =  parameters
     
@@ -148,14 +148,14 @@ class NetworkObject {
     dataTask.resume()
   }
   
-   func getCurrentUser(token: Data, completion: @escaping (CurrentUser?) -> Void) {
+  func getCurrentUser(token: Data, completion: @escaping (CurrentUser?) -> Void) {
     host = .ApiGitHub
     path = "/user"
     let components = self.components
-    guard let stringigiedToken = String(data: token, encoding: .utf8) else {return}
+    guard let stringifiedToken = String(data: token, encoding: .utf8) else {return}
     guard let url = components.url else {return}
     var request = URLRequest(url: url)
-    request.addValue("token \(stringigiedToken)", forHTTPHeaderField: "Authorization")
+    request.addValue("token \(stringifiedToken)", forHTTPHeaderField: "Authorization")
     let session = URLSession(configuration: .default)
     let dataTask = session.dataTask(with: request) {data, response, error in
       if let response = response as? HTTPURLResponse {
