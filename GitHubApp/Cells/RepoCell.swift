@@ -29,8 +29,6 @@ class RepoCell: UITableViewCell {
   
   private lazy var avatarImage: UIImageView = {
     let imageView = UIImageView()
-    //    imageView.backgroundColor = .blue
-    
     return imageView
   }()
   
@@ -59,7 +57,7 @@ class RepoCell: UITableViewCell {
     avatarImage.frame.origin.y = nicknameLabel.frame.maxY + 5
     avatarImage.clipsToBounds = true
     avatarImage.makeRounded()
-    
+
     contentView.addSubview(repositoryName)
     contentView.addSubview(repoDescriptionLabel)
     contentView.addSubview(nicknameLabel)
@@ -73,8 +71,7 @@ class RepoCell: UITableViewCell {
     nicknameLabel.text = repo.owner.login
     contentView.frame.size.width = UIScreen.main.bounds.width
     configureLayout()
-      self.avatarImage.kf.setImage(with: URL(string: repo.owner.avatarURL.absoluteString))
-  
+    self.avatarImage.kf.setImage(with: URL(string: repo.owner.avatarURL.absoluteString))
     if repoDescriptionLabel.frame.maxY >= avatarImage.frame.maxY {
       contentView.bounds.size.height = repoDescriptionLabel.frame.maxY + 5}
     else {

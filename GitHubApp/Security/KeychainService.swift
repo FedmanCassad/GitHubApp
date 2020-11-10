@@ -9,7 +9,6 @@ import Security
 import Foundation
 
 class KeyChainService: SensitiveDataWrapper {
-  
   static let server = "github.com"
   
   static func save(key: String, data: Data) -> OSStatus {

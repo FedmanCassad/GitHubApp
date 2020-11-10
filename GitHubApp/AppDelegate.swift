@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     guard  let recievedParameters = url.params() else {
       return false
     }
-    
     if let code = recievedParameters["code"] as? String {
       if let codeData = code.data(using: .utf8){
         let _ =  KeyChainService.save(key: "temporaryCode", data: codeData)
