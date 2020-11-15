@@ -29,7 +29,6 @@ class SearchResultsViewController: UIViewController {
     tableView.rowHeight = UITableView.automaticDimension
     tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
     tableView.register(RepoCell.self, forCellReuseIdentifier: "RepoCell")
-    
   }
   
   required init?(coder: NSCoder) {

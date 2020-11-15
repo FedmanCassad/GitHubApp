@@ -166,7 +166,6 @@ class NetworkObject {
       }
       
       if let data = data {
-        print(String(data: data, encoding: .utf8))
         if let user = try? JSONDecoder().decode(CurrentUser.self, from: data) {
           completion(user)
         } else {

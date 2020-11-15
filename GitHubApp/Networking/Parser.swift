@@ -26,7 +26,6 @@ class Parser {
     guard let result = try? decoder.decode(Repos.self, from: data) else {
       return nil
     }
-    print(result.repos)
     return result.repos
   }
   
