@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let _ =  KeyChainService.save(key: "temporaryCode", data: codeData)
       }
     }
+    
     if let nav = window?.rootViewController as? UINavigationController {
       let searchVC = SearchReposViewController()
       nav.pushViewController(searchVC, animated: true)
